@@ -1,0 +1,277 @@
+---
+// DualTrack.astro: Interactive Split-Screen for JAMES (On-Track vs Off-Track)
+// Uses official high-res imagery: on_track_suit_official.webp & off_track_hoodie_official.webp
+---
+
+<section id="dual-track" class="relative min-h-screen py-24 px-4 sm:px-6 md:px-12 bg-transparent overflow-hidden select-none">
+  <!-- Section Header -->
+  <div class="max-w-7xl mx-auto mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-800 pb-6">
+    <div class="space-y-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 bg-[#E0FF00] shadow-[0_0_10px_#E0FF00]"></span>
+        <span class="font-mono text-xs uppercase tracking-widest text-[#E0FF00] font-bold">SECTION 02 // DUAL IDENTITY</span>
+      </div>
+      <h2 class="text-3xl sm:text-5xl md:text-6xl font-serif font-black uppercase text-white tracking-tight">
+        ON TRACK <span class="text-neutral-500 font-mono font-light text-2xl sm:text-4xl">/</span> OFF TRACK
+      </h2>
+    </div>
+
+    <!-- Quick Mode Selector Switcher -->
+    <div class="flex items-center gap-2 bg-neutral-900/90 backdrop-blur-md p-1.5 rounded-full border border-neutral-800 shadow-xl">
+      <button 
+        id="btn-mode-ontrack" 
+        class="px-5 py-2 rounded-full font-mono text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-all"
+      >
+        ON TRACK [RACE]
+      </button>
+      <button 
+        id="btn-mode-split" 
+        class="px-5 py-2 rounded-full font-mono text-xs uppercase tracking-wider text-black bg-[#E0FF00] font-bold transition-all shadow-[0_0_15px_rgba(224,255,0,0.4)]"
+      >
+        50/50 SPLIT
+      </button>
+      <button 
+        id="btn-mode-offtrack" 
+        class="px-5 py-2 rounded-full font-mono text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-all"
+      >
+        OFF TRACK [STYLE]
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Dual Stage Container (Split Flex System to prevent any text overlap) -->
+  <div 
+    id="dual-container" 
+    class="relative max-w-7xl mx-auto h-[640px] sm:h-[700px] rounded-3xl overflow-hidden border border-neutral-800 flex shadow-[0_0_80px_rgba(0,0,0,0.9)] cursor-ew-resize group"
+  >
+    <!-- LEFT PANE: ON TRACK (RACING COCKPIT) -->
+    <div 
+      id="pane-ontrack" 
+      class="relative h-full overflow-hidden transition-all duration-75 flex flex-col justify-between p-6 sm:p-12 bg-black border-r-2 border-[#E0FF00]"
+      style="width: 50%; min-width: 0;"
+    >
+      <!-- High-Res Background Photography from landonorris.com -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="/images/on_track_suit_official.webp" 
+          alt="James F1 Cockpit & Racing Suit" 
+          class="w-full h-full object-cover opacity-60 scale-105 group-hover:scale-100 transition-transform duration-700 filter contrast-125"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/70"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(224,255,0,0.25),transparent_70%)]"></div>
+      </div>
+
+      <!-- On-Track Top Meta -->
+      <div class="relative z-10 flex justify-between items-start">
+        <div class="space-y-1">
+          <span class="inline-block px-3 py-1 rounded bg-[#E0FF00] text-black font-mono text-[10px] font-black tracking-widest uppercase mb-1">
+            ON TRACK // SPEED PURSUIT
+          </span>
+          <h3 class="text-2xl sm:text-4xl font-serif font-black text-white leading-tight">
+            MCLAREN FORMULA 1 <span class="text-[#E0FF00]">MCL38</span>
+          </h3>
+        </div>
+      </div>
+
+      <!-- On-Track Center Content -->
+      <div class="relative z-10 space-y-4 max-w-md my-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-[#E0FF00]/40 text-[#E0FF00] font-mono text-[11px] font-bold">
+          <span class="w-2 h-2 rounded-full bg-[#E0FF00] animate-ping"></span>
+          <span>POWER UNIT: 1.6L V6 TURBO HYBRID // 1,020+ HP</span>
+        </div>
+
+        <p class="font-serif italic text-base sm:text-lg text-neutral-200">
+          "Hitting apexes at 350 km/h, braking at the 50-meter board under 5.4G deceleration. Raw telemetry, carbon composite, and zero hesitation."
+        </p>
+
+        <!-- Technical Telemetry Pills -->
+        <div class="grid grid-cols-3 gap-2.5 pt-2">
+          <div class="p-2.5 rounded-xl bg-black/80 border border-neutral-800 backdrop-blur-md">
+            <span class="block font-mono text-[9px] text-neutral-400">BRAKING G</span>
+            <span class="font-mono text-sm font-bold text-[#E0FF00]">-5.4 G</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-black/80 border border-neutral-800 backdrop-blur-md">
+            <span class="block font-mono text-[9px] text-neutral-400">APEX VELOCITY</span>
+            <span class="font-mono text-sm font-bold text-white">268 KM/H</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-black/80 border border-neutral-800 backdrop-blur-md">
+            <span class="block font-mono text-[9px] text-neutral-400">PADDLE SHIFT</span>
+            <span class="font-mono text-sm font-bold text-[#E0FF00]">0.005s</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- On-Track Bottom Meta -->
+      <div class="relative z-10 flex justify-between items-center text-xs font-mono text-neutral-400 border-t border-neutral-800 pt-4">
+        <span>RPM REDLINE: 13,500</span>
+        <span class="text-[#E0FF00] font-bold">GRID POSITION: P1</span>
+      </div>
+    </div>
+
+    <!-- RIGHT PANE: OFF TRACK (STREETWEAR & LIFESTYLE) -->
+    <div 
+      id="pane-offtrack" 
+      class="relative h-full overflow-hidden transition-all duration-75 flex flex-col justify-between p-6 sm:p-12 bg-neutral-950"
+      style="width: 50%; min-width: 0;"
+    >
+      <!-- High-Res Background Photography from landonorris.com -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="/images/off_track_hoodie_official.webp" 
+          alt="James Streetwear Lifestyle" 
+          class="w-full h-full object-cover opacity-60 scale-105 group-hover:scale-100 transition-transform duration-700 filter contrast-110"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/70"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(217,70,239,0.25),transparent_70%)]"></div>
+      </div>
+
+      <!-- Off-Track Top Meta -->
+      <div class="relative z-10 flex justify-between items-start">
+        <div class="space-y-1">
+          <span class="inline-block px-3 py-1 rounded bg-fuchsia-600 text-white font-mono text-[10px] font-black tracking-widest uppercase mb-1 shadow-[0_0_15px_rgba(217,70,239,0.5)]">
+            OFF TRACK // JAMES APEX STUDIOS
+          </span>
+          <h3 class="text-2xl sm:text-4xl font-serif font-black text-white leading-tight">
+            STREETWEAR, SOUND & CULTURE
+          </h3>
+        </div>
+      </div>
+
+      <!-- Off-Track Center Content -->
+      <div class="relative z-10 space-y-4 max-w-md my-auto">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-fuchsia-500/40 text-fuchsia-300 font-mono text-[11px] font-bold">
+          <span class="w-2 h-2 rounded-full bg-fuchsia-500 animate-ping"></span>
+          <span>CAPSULE 01 // OVERSIZED 480 GSM HEAVYWEIGHT</span>
+        </div>
+
+        <p class="font-serif italic text-base sm:text-lg text-neutral-200">
+          "Away from the grid, fashion, photography, vinyl music and gaming fuel James' creative universe. Redefining what a world champion looks like in modern pop culture."
+        </p>
+
+        <!-- Streetwear & Lifestyle Badges -->
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="px-3 py-1.5 rounded-lg bg-black/80 border border-neutral-800 font-mono text-xs text-neutral-300">#STREETWEAR</span>
+          <span class="px-3 py-1.5 rounded-lg bg-black/80 border border-neutral-800 font-mono text-xs text-neutral-300">#PHOTOGRAPHY</span>
+          <span class="px-3 py-1.5 rounded-lg bg-black/80 border border-neutral-800 font-mono text-xs text-neutral-300">#LOFI_SOUNDS</span>
+          <span class="px-3 py-1.5 rounded-lg bg-black/80 border border-fuchsia-500/40 font-mono text-xs text-fuchsia-300 font-bold">#CAPSULE_DROP</span>
+        </div>
+      </div>
+
+      <!-- Off-Track Bottom Meta -->
+      <div class="relative z-10 flex justify-between items-center text-xs font-mono text-neutral-400 border-t border-neutral-800 pt-4">
+        <span>ATMOSPHERE: DOWNTEMPO VINYL</span>
+        <span class="text-fuchsia-400 font-bold">STUDIOS: LONDON & MONACO</span>
+      </div>
+    </div>
+
+    <!-- Center Interactive Handle & Divider Line -->
+    <div 
+      id="drag-handle" 
+      class="absolute inset-y-0 w-10 -translate-x-1/2 flex items-center justify-center z-30 pointer-events-none"
+      style="left: 50%;"
+    >
+      <div class="w-1 h-full bg-[#E0FF00] shadow-[0_0_20px_#E0FF00]"></div>
+      <div class="absolute w-12 h-12 rounded-full bg-[#0A0A0A] border-2 border-[#E0FF00] flex items-center justify-center shadow-[0_0_30px_rgba(224,255,0,0.9)] group-hover:scale-115 transition-transform">
+        <svg class="w-5 h-5 text-[#E0FF00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"></polyline>
+          <polyline points="9 18 3 12 9 6"></polyline>
+          <polyline points="15 6 21 12 15 18"></polyline>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Hint Pill -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none px-4 py-1.5 rounded-full bg-black/85 border border-neutral-700/80 backdrop-blur-md text-[10px] font-mono tracking-widest uppercase text-neutral-300">
+      SLIDE CURSOR HORIZONTALLY TO EXPLORE DUAL SOUL
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { f1Audio } from '../utils/audio';
+
+  const container = document.getElementById('dual-container');
+  const paneOnTrack = document.getElementById('pane-ontrack');
+  const paneOffTrack = document.getElementById('pane-offtrack');
+  const dragHandle = document.getElementById('drag-handle');
+  const btnOnTrack = document.getElementById('btn-mode-ontrack');
+  const btnSplit = document.getElementById('btn-mode-split');
+  const btnOffTrack = document.getElementById('btn-mode-offtrack');
+
+  let currentPercent = 50;
+
+  function setSplit(percent: number, smooth: boolean = false) {
+    currentPercent = Math.max(15, Math.min(85, percent));
+
+    if (smooth) {
+      gsap.to(dragHandle, {
+        left: `${currentPercent}%`,
+        duration: 0.6,
+        ease: 'power3.out'
+      });
+      gsap.to(paneOnTrack, {
+        width: `${currentPercent}%`,
+        duration: 0.6,
+        ease: 'power3.out'
+      });
+      gsap.to(paneOffTrack, {
+        width: `${100 - currentPercent}%`,
+        duration: 0.6,
+        ease: 'power3.out'
+      });
+    } else {
+      if (dragHandle) dragHandle.style.left = `${currentPercent}%`;
+      if (paneOnTrack) paneOnTrack.style.width = `${currentPercent}%`;
+      if (paneOffTrack) paneOffTrack.style.width = `${100 - currentPercent}%`;
+    }
+
+    const mode = currentPercent > 60 ? 'ontrack' : (currentPercent < 40 ? 'offtrack' : 'split');
+    document.dispatchEvent(new CustomEvent('f1:mode-change', { detail: { mode } }));
+  }
+
+  container?.addEventListener('mousemove', (e) => {
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percent = (x / rect.width) * 100;
+    setSplit(percent, false);
+  });
+
+  container?.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      const rect = container.getBoundingClientRect();
+      const x = e.touches[0].clientX - rect.left;
+      const percent = (x / rect.width) * 100;
+      setSplit(percent, false);
+    }
+  }, { passive: true });
+
+  btnOnTrack?.addEventListener('click', () => {
+    f1Audio.playTurboFlutter();
+    setSplit(80, true);
+    setActiveBtn(btnOnTrack);
+  });
+
+  btnSplit?.addEventListener('click', () => {
+    f1Audio.playClick(1.4);
+    setSplit(50, true);
+    setActiveBtn(btnSplit);
+  });
+
+  btnOffTrack?.addEventListener('click', () => {
+    f1Audio.playClick(0.9);
+    setSplit(20, true);
+    setActiveBtn(btnOffTrack);
+  });
+
+  function setActiveBtn(active: HTMLElement | null) {
+    [btnOnTrack, btnSplit, btnOffTrack].forEach((btn) => {
+      if (!btn) return;
+      if (btn === active) {
+        btn.className = "px-5 py-2 rounded-full font-mono text-xs uppercase tracking-wider text-black bg-[#E0FF00] font-bold transition-all shadow-[0_0_15px_rgba(224,255,0,0.4)]";
+      } else {
+        btn.className = "px-5 py-2 rounded-full font-mono text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-all";
+      }
+    });
+  }
+</script>

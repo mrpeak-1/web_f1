@@ -1,0 +1,131 @@
+---
+// TelemetryDashboard.astro: Official Footer Reference from landonorris.com for JAMES // J4
+// Matches media_1792690432986_2aa848cd.png exactly: "ALWAYS BRINGING THE FIGHT." + Driver Helmet Hero + Lime Bar
+---
+
+<footer id="telemetry-footer" class="relative bg-[#0d120a] border-t border-neutral-800/80 text-white pt-20 select-none overflow-hidden">
+  <!-- Topographic Contour Lines Background -->
+  <div class="pointer-events-none absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_bottom,#2d3b1e_0%,transparent_80%)]"></div>
+  <svg class="pointer-events-none absolute inset-0 w-full h-full opacity-15 stroke-[#E0FF00]/40 fill-none stroke-[1]" viewBox="0 0 1440 900" preserveAspectRatio="none">
+    <path d="M-100 700 C 300 650, 600 850, 900 750 C 1200 650, 1400 900, 1600 800" />
+    <path d="M-100 550 C 400 500, 700 700, 1000 600 C 1300 500, 1500 800, 1600 700" />
+  </svg>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
+    <!-- Top James Signature (From Reference 3) -->
+    <div class="w-full max-w-xs mx-auto mb-2 flex justify-center">
+      <svg viewBox="0 0 450 140" class="w-48 sm:w-56 h-auto stroke-[#E0FF00] fill-none stroke-[3] drop-shadow-[0_0_15px_rgba(224,255,0,0.6)]">
+        <path d="M 80 30 C 90 20, 110 20, 105 55 C 100 100, 90 135, 55 130 C 30 125, 30 100, 50 90 C 65 80, 85 90, 100 105" stroke-linecap="round" />
+        <path d="M 120 85 C 130 65, 160 65, 160 85 C 160 105, 135 110, 130 95 C 125 75, 150 70, 170 95 C 180 75, 200 70, 210 90 C 220 70, 240 68, 250 90 C 260 75, 280 70, 275 90" stroke-linecap="round" />
+        <path d="M 55 115 C 150 100, 290 100, 400 75" stroke-linecap="round" stroke-width="2.5" />
+        <path d="M 360 35 L 345 90 L 390 90 M 375 60 L 375 120" stroke-linecap="round" stroke-width="3" />
+      </svg>
+    </div>
+
+    <!-- Official Title: ALWAYS BRINGING THE FIGHT. (Identical to Reference 3) -->
+    <div class="text-center max-w-4xl mx-auto mb-10">
+      <h2 class="text-5xl sm:text-7xl md:text-8xl font-serif font-black uppercase tracking-tight text-[#EDEDED] leading-none">
+        ALWAYS <span class="text-[#E0FF00]">BRINGING</span> <br />
+        THE <span class="text-[#E0FF00] italic">FIGHT.</span>
+      </h2>
+    </div>
+
+    <!-- Centerpiece Grid: Navigation Links + Center Helmet Hero + Social Links -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center mb-12">
+      <!-- Left: Pages Navigation Links (Exact from Reference 3) -->
+      <div class="md:col-span-3 text-center md:text-left space-y-4">
+        <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-bold block">
+          PAGES
+        </span>
+        <ul class="space-y-2 font-serif font-bold text-lg sm:text-xl text-neutral-300">
+          <li><a href="#hero" class="hover:text-[#E0FF00] transition-colors">HOME</a></li>
+          <li><a href="#dual-track" class="hover:text-[#E0FF00] transition-colors">ON TRACK</a></li>
+          <li><a href="#dual-track" class="hover:text-[#E0FF00] transition-colors">OFF TRACK</a></li>
+          <li><a href="#f1-car-3d" class="hover:text-[#E0FF00] transition-colors">MCL38 CAR</a></li>
+          <li><a href="#helmet-vault" class="hover:text-[#E0FF00] transition-colors">HELMETS</a></li>
+          <li><a href="#merch-capsule" class="text-[#E0FF00] hover:underline transition-colors">STORE</a></li>
+        </ul>
+      </div>
+
+      <!-- Center: Massive Driver Helmet Hero Image (footer_helm_hero.webp) -->
+      <div class="md:col-span-6 flex flex-col items-center">
+        <div class="relative w-full max-w-md sm:max-w-lg aspect-square flex items-center justify-center">
+          <img 
+            src="/images/helmets/footer_helm_hero.webp" 
+            alt="James in Volt Zebra Helmet" 
+            class="w-full h-full object-contain filter contrast-125 drop-shadow-[0_25px_50px_rgba(0,0,0,0.9)] hover:scale-105 transition-transform duration-700"
+          />
+        </div>
+
+        <!-- Center CTA Button: BUSINESS ENQUIRIES ↗ (From Reference 3) -->
+        <a 
+          href="mailto:contact@james-apex.f1" 
+          class="mt-4 px-8 py-3.5 rounded-full bg-[#E0FF00] hover:bg-white text-black font-mono font-black text-xs uppercase tracking-widest transition-all hover:scale-105 shadow-[0_0_25px_rgba(224,255,0,0.7)] flex items-center gap-2"
+        >
+          <span>BUSINESS ENQUIRIES</span>
+          <svg class="w-3.5 h-3.5 stroke-current fill-none stroke-[2.5]" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+        </a>
+      </div>
+
+      <!-- Right: Follow On Socials (Exact from Reference 3) -->
+      <div class="md:col-span-3 text-center md:text-right space-y-4">
+        <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-400 font-bold block">
+          FOLLOW ON
+        </span>
+        <ul class="space-y-2 font-serif font-bold text-lg sm:text-xl text-neutral-300">
+          <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#E0FF00] transition-colors">TIKTOK</a></li>
+          <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#E0FF00] transition-colors">INSTAGRAM</a></li>
+          <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#E0FF00] transition-colors">YOUTUBE</a></li>
+          <li><a href="https://twitch.tv" target="_blank" rel="noopener noreferrer" class="hover:text-[#E0FF00] transition-colors">TWITCH</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Official Sponsors Marquee Bar (Exact from Reference 3) -->
+    <div class="border-t border-neutral-800/80 py-8 mb-6">
+      <div class="flex flex-wrap items-center justify-around gap-6 md:gap-10 opacity-70 hover:opacity-100 transition-opacity">
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-white hover:text-[#E0FF00] transition-colors cursor-pointer">
+          GOOGLE
+        </span>
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-white hover:text-[#E0FF00] transition-colors cursor-pointer">
+          RALPH LAUREN
+        </span>
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-white hover:text-[#E0FF00] transition-colors cursor-pointer">
+          ANDROID
+        </span>
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-white hover:text-[#E0FF00] transition-colors cursor-pointer">
+          McLAREN F1
+        </span>
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-white hover:text-[#E0FF00] transition-colors cursor-pointer">
+          UBER
+        </span>
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-[#E0FF00] transition-colors cursor-pointer">
+          J4
+        </span>
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-white hover:text-[#E0FF00] transition-colors cursor-pointer">
+          QUADRANT
+        </span>
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-white hover:text-[#E0FF00] transition-colors cursor-pointer">
+          BELL HELMETS
+        </span>
+        <span class="font-mono text-sm tracking-widest font-black uppercase text-white hover:text-[#E0FF00] transition-colors cursor-pointer">
+          TUMI
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Solid Lime Strip (Exact from Reference 3) -->
+  <div class="w-full bg-[#E0FF00] text-black py-4 px-4 sm:px-6 md:px-12 font-mono text-xs font-bold">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <span>© 2026 James. All rights reserved</span>
+      <div class="flex items-center gap-6">
+        <a href="#hero" class="hover:underline">PRIVACY POLICY</a>
+        <a href="#hero" class="hover:underline">TERMS</a>
+        <a href="#hero" class="hover:underline flex items-center gap-1 font-black">
+          <span>BACK TO TOP ↑</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,185 @@
+---
+// Preloader.astro: F1 "Lights Out and Away We Go" Gantry Sequence for JAMES // J4
+---
+
+<div id="f1-preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#070707] text-white overflow-hidden select-none">
+  <!-- Left & Right Split Curtains for revealing transition -->
+  <div id="curtain-left" class="absolute inset-y-0 left-0 w-1/2 bg-[#070707] border-r border-[#1f1f1f] z-10 transition-transform duration-700 ease-[cubic-bezier(0.85,0,0.15,1)]"></div>
+  <div id="curtain-right" class="absolute inset-y-0 right-0 w-1/2 bg-[#070707] border-l border-[#1f1f1f] z-10 transition-transform duration-700 ease-[cubic-bezier(0.85,0,0.15,1)]"></div>
+
+  <!-- Preloader Main Content -->
+  <div id="preloader-content" class="relative z-20 flex flex-col items-center gap-8 px-6 text-center max-w-xl">
+    <!-- F1 Gantry Status Badge -->
+    <div class="flex items-center gap-3 px-4 py-1.5 rounded-full border border-neutral-800 bg-neutral-900/80 backdrop-blur-md">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#E0FF00] animate-pulse"></span>
+      <span class="font-mono text-xs uppercase tracking-widest text-neutral-300 font-bold">JAMES // MCL38 CAR #4 STANDING START</span>
+    </div>
+
+    <!-- Official F1 5-Light Start Gantry -->
+    <div class="p-6 md:p-8 bg-[#121212]/95 border border-neutral-800 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.95)] backdrop-blur-xl">
+      <div class="grid grid-cols-5 gap-3 sm:gap-5">
+        <!-- 5 Gantry Light Pods -->
+        {Array.from({ length: 5 }).map((_, i) => (
+          <div class="flex flex-col items-center gap-2 p-2 sm:p-3 rounded-2xl bg-black/70 border border-neutral-800/80 shadow-inner">
+            <span class="font-mono text-[10px] text-neutral-500 font-bold">{i + 1}</span>
+            <div 
+              class="light-bulb w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-[#200505] border-2 border-[#3d0a0a] transition-all duration-150 relative overflow-hidden"
+              data-index={i}
+            >
+              <div class="light-core absolute inset-0 rounded-full opacity-0 bg-[#FF1801] shadow-[0_0_30px_#FF1801,0_0_60px_#FF1801]"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="mt-4 flex items-center justify-between text-[11px] font-mono text-neutral-500 uppercase tracking-wider">
+        <span>GRID REVS: <span id="preloader-revs" class="text-[#E0FF00] font-bold">12,500</span> RPM</span>
+        <span class="text-white">DRIVER: JAMES</span>
+      </div>
+    </div>
+
+    <!-- Dynamic Message -->
+    <div class="space-y-1">
+      <p id="preloader-status" class="font-mono text-xs uppercase tracking-[0.25em] text-[#E0FF00] font-bold">
+        INITIALIZING RACE SYSTEMS...
+      </p>
+      <p class="font-serif italic text-neutral-400 text-sm">
+        "It's lights out and away we go!"
+      </p>
+    </div>
+
+    <!-- Interactive Start Button / Skip -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 mt-2">
+      <button 
+        id="btn-start-race" 
+        class="group relative px-8 py-3.5 rounded-full overflow-hidden bg-[#E0FF00] text-black font-mono text-xs font-black uppercase tracking-wider transition-all hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(224,255,0,0.5)]"
+      >
+        <span class="relative z-10 flex items-center gap-2">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          ACTIVATE AUDIO & ENTER COCKPIT
+        </span>
+      </button>
+
+      <button 
+        id="btn-skip-preloader" 
+        class="text-neutral-500 hover:text-white font-mono text-[11px] uppercase tracking-widest transition-colors py-2 px-3"
+      >
+        [Skip intro]
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from 'gsap';
+  import { f1Audio } from '../utils/audio';
+
+  const preloader = document.getElementById('f1-preloader');
+  const curtainLeft = document.getElementById('curtain-left');
+  const curtainRight = document.getElementById('curtain-right');
+  const preloaderContent = document.getElementById('preloader-content');
+  const statusText = document.getElementById('preloader-status');
+  const lightCores = document.querySelectorAll('.light-bulb .light-core');
+  const btnStart = document.getElementById('btn-start-race');
+  const btnSkip = document.getElementById('btn-skip-preloader');
+
+  let hasStarted = false;
+  let hasSkipped = false;
+
+  function runLightsOutSequence() {
+    if (hasStarted || hasSkipped) return;
+    hasStarted = true;
+
+    if (btnStart) btnStart.style.display = 'none';
+    if (statusText) statusText.innerText = "REV LIMIT CHECK: 12,500 RPM";
+
+    const tl = gsap.timeline();
+
+    // Sequentially illuminate the 5 red starting lights
+    lightCores.forEach((core, idx) => {
+      tl.to(core, {
+        opacity: 1,
+        duration: 0.1,
+        ease: 'none',
+        onStart: () => {
+          f1Audio.playLightBeep(idx + 1);
+        }
+      }, `+=${idx === 0 ? 0.3 : 0.45}`);
+    });
+
+    // Random FIA pause between 0.4s and 0.9s
+    const randomPause = 0.5 + Math.random() * 0.4;
+    
+    tl.to({}, { duration: randomPause });
+
+    // LIGHTS OUT!
+    tl.add(() => {
+      lightCores.forEach((core) => {
+        gsap.set(core, { opacity: 0 });
+      });
+
+      if (statusText) {
+        statusText.innerText = "LIGHTS OUT! AWAY WE GO!";
+        statusText.classList.add('text-white');
+      }
+
+      f1Audio.playLightsOutLaunch();
+    });
+
+    // Animate curtains opening
+    tl.to(preloaderContent, {
+      opacity: 0,
+      scale: 0.92,
+      duration: 0.4,
+      ease: 'power3.in'
+    }, "+=0.15");
+
+    tl.to(curtainLeft, {
+      xPercent: -100,
+      duration: 0.85,
+      ease: 'power4.inOut'
+    }, "-=0.1");
+
+    tl.to(curtainRight, {
+      xPercent: 100,
+      duration: 0.85,
+      ease: 'power4.inOut'
+    }, "<");
+
+    tl.add(() => {
+      if (preloader) preloader.style.pointerEvents = 'none';
+      if (preloader) preloader.style.display = 'none';
+      document.dispatchEvent(new CustomEvent('f1:race-started'));
+    });
+  }
+
+  function skipPreloader() {
+    if (hasSkipped) return;
+    hasSkipped = true;
+    f1Audio.playClick(1.2);
+    if (preloader) {
+      gsap.to(preloader, {
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        onComplete: () => {
+          preloader.style.display = 'none';
+          document.dispatchEvent(new CustomEvent('f1:race-started'));
+        }
+      });
+    }
+  }
+
+  btnStart?.addEventListener('click', () => {
+    f1Audio.playClick(1.5);
+    runLightsOutSequence();
+  });
+
+  btnSkip?.addEventListener('click', skipPreloader);
+
+  // Auto start after 2 seconds if not interacted
+  setTimeout(() => {
+    if (!hasStarted && !hasSkipped) {
+      runLightsOutSequence();
+    }
+  }, 2200);
+</script>

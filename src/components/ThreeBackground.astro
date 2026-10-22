@@ -1,0 +1,176 @@
+---
+// ThreeBackground.astro: Interactive 3D Particle Grid & Warp Speed Tunnel
+---
+
+<canvas id="three-bg-canvas" class="pointer-events-none fixed inset-0 z-0 w-full h-full opacity-60 transition-opacity duration-1000"></canvas>
+
+<script>
+  import * as THREE from 'three';
+
+  const canvas = document.getElementById('three-bg-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    // 1. Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0a0a0a, 0.0018);
+
+    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 1, 2000);
+    camera.position.z = 800;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // 2. Geometry: 1,800 Racing Particles & Warp Speed Streamers
+    const particleCount = 1800;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const scales = new Float32Array(particleCount);
+
+    // Initial color: Neon Volt (#E0FF00) + F1 Off-White
+    const colorVolt = new THREE.Color(0xE0FF00);
+    const colorCyan = new THREE.Color(0x00FFCC);
+    const colorWhite = new THREE.Color(0xEDEDED);
+
+    for (let i = 0; i < particleCount; i++) {
+      // Cylindrical distribution around camera z-axis
+      const radius = 150 + Math.random() * 850;
+      const angle = Math.random() * Math.PI * 2;
+      
+      positions[i * 3] = Math.cos(angle) * radius;
+      positions[i * 3 + 1] = Math.sin(angle) * radius * 0.7; // slight oval flatten
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
+
+      // Color variation
+      const mixedColor = Math.random() > 0.4 ? colorVolt : (Math.random() > 0.5 ? colorCyan : colorWhite);
+      colors[i * 3] = mixedColor.r;
+      colors[i * 3 + 1] = mixedColor.g;
+      colors[i * 3 + 2] = mixedColor.b;
+
+      scales[i] = Math.random() * 3 + 1.2;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
+
+    // Shader Material for smooth circular glow
+    const material = new THREE.PointsMaterial({
+      size: 3.5,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.75,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
+
+    // 3. Ambient Flow Lines (Speed Aerodynamic Ribbons)
+    const curvePoints: THREE.Vector3[] = [];
+    for (let i = 0; i < 30; i++) {
+      curvePoints.push(new THREE.Vector3(
+        (Math.random() - 0.5) * 600,
+        (Math.random() - 0.5) * 400,
+        (i - 15) * 80
+      ));
+    }
+    const curve = new THREE.CatmullRomCurve3(curvePoints);
+    const tubeGeo = new THREE.TubeGeometry(curve, 64, 1.2, 8, false);
+    const tubeMat = new THREE.MeshBasicMaterial({
+      color: 0xE0FF00,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.12
+    });
+    const tubeMesh = new THREE.Mesh(tubeGeo, tubeMat);
+    scene.add(tubeMesh);
+
+    // 4. Interactive Physics & Scroll Warp Speed
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let scrollVelocity = 0;
+    let baseSpeed = 1.2;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX - window.innerWidth / 2) * 0.4;
+      mouseY = (e.clientY - window.innerHeight / 2) * 0.4;
+    });
+
+    // Listen to Lenis scroll velocity if available
+    window.addEventListener('scroll', () => {
+      const lenis = (window as any).lenis;
+      if (lenis) {
+        scrollVelocity = Math.abs(lenis.velocity || 0);
+      }
+    }, { passive: true });
+
+    // Mode Color Morpher
+    document.addEventListener('f1:mode-change', ((e: CustomEvent) => {
+      const mode = e.detail?.mode || 'ontrack';
+      const targetColor1 = new THREE.Color(mode === 'ontrack' ? 0xE0FF00 : (mode === 'offtrack' ? 0xD946EF : 0xE0FF00));
+      const targetColor2 = new THREE.Color(mode === 'ontrack' ? 0x00FFCC : (mode === 'offtrack' ? 0xFF9900 : 0xFFFFFF));
+
+      const colAttr = geometry.attributes.color as THREE.BufferAttribute;
+      for (let i = 0; i < particleCount; i++) {
+        const c = Math.random() > 0.5 ? targetColor1 : targetColor2;
+        colAttr.setXYZ(i, c.r, c.g, c.b);
+      }
+      colAttr.needsUpdate = true;
+      tubeMat.color = targetColor1;
+    }) as EventListener);
+
+    // 5. Animation Loop
+    let clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = clock.getDelta();
+      targetX += (mouseX - targetX) * 0.05;
+      targetY += (mouseY - targetY) * 0.05;
+
+      camera.position.x = targetX * 0.5;
+      camera.position.y = -targetY * 0.5;
+      camera.lookAt(0, 0, 0);
+
+      tubeMesh.rotation.z += 0.001;
+
+      // Particle Z flow (speed increases when scrolling fast)
+      const currentSpeed = baseSpeed + (scrollVelocity * 0.6);
+      scrollVelocity *= 0.92; // smooth damping
+
+      const posAttr = geometry.attributes.position as THREE.BufferAttribute;
+      const posArray = posAttr.array as Float32Array;
+
+      for (let i = 0; i < particleCount; i++) {
+        posArray[i * 3 + 2] += currentSpeed;
+
+        // Wrap around when past camera
+        if (posArray[i * 3 + 2] > 1000) {
+          posArray[i * 3 + 2] = -1000;
+        }
+      }
+      posAttr.needsUpdate = true;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  }
+</script>
+

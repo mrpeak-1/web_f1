@@ -1,0 +1,181 @@
+---
+// MerchCapsule.astro: WORLD DRIVERS' CHAMPION // Streetwear Capsule Drop
+// Enhanced with real high-resolution photography and 3D Card Physics
+---
+
+<section id="merch-capsule" class="relative py-28 px-4 sm:px-6 md:px-12 bg-transparent text-white overflow-hidden select-none">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header: Editorial Championship Typography -->
+    <div class="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-800 pb-8">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 bg-[#E0FF00] shadow-[0_0_10px_#E0FF00]"></span>
+          <span class="font-mono text-xs uppercase tracking-widest text-[#E0FF00] font-bold">SECTION 05 // APPAREL CAPSULE</span>
+        </div>
+        <h2 class="text-4xl sm:text-6xl md:text-7xl font-serif font-black uppercase tracking-tight text-white leading-none">
+          WORLD DRIVERS' <br />
+          <span class="text-[#E0FF00] italic">CHAMPION</span> DROP
+        </h2>
+      </div>
+
+      <div class="max-w-md">
+        <p class="font-serif italic text-base text-neutral-300">
+          "Engineered for the podium and the streets. Ultra-heavyweight French Terry cotton, oversized silhouette, and high-density volt puff print."
+        </p>
+      </div>
+    </div>
+
+    <!-- Product Showcase Stage -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <!-- Left: Interactive 3D Real Hoodie Showcase Card -->
+      <div class="lg:col-span-7">
+        <div 
+          id="hoodie-card" 
+          class="relative w-full h-[520px] sm:h-[600px] rounded-3xl bg-neutral-900 border border-neutral-800 overflow-hidden flex items-center justify-center p-8 transition-transform duration-200 shadow-2xl group cursor-pointer"
+        >
+          <!-- High-Res Real Photography of the Hoodie -->
+          <img 
+            src="/images/merch_apparel.jpg" 
+            alt="James World Champion Streetwear Hoodie" 
+            class="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 filter contrast-115"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/60"></div>
+          
+          <!-- Product Badges -->
+          <div class="absolute top-6 left-6 flex items-center gap-2 z-10">
+            <span class="px-3.5 py-1 rounded-full bg-black/85 border border-[#E0FF00]/60 font-mono text-xs text-[#E0FF00] font-bold shadow-lg">
+              DROP 01 // LIMITED 250 PCS
+            </span>
+          </div>
+
+          <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between z-10">
+            <div>
+              <span class="font-mono text-xs text-[#E0FF00] font-bold block mb-1">JAMES #4 // CHAMPIONSHIP CAPSULE</span>
+              <h4 class="text-2xl sm:text-3xl font-serif font-black text-white">OVERSIZED HEAVYWEIGHT HOODIE</h4>
+              <p class="font-mono text-xs text-neutral-300">French Terry Cotton // 480 GSM</p>
+            </div>
+            <div class="font-mono text-xs font-bold text-black bg-[#E0FF00] px-4 py-2 rounded-full shadow-[0_0_20px_#E0FF00]">
+              €135 EUR
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Specification & Instant Checkout -->
+      <div class="lg:col-span-5 space-y-8">
+        <div>
+          <span class="font-mono text-xs text-[#E0FF00] uppercase tracking-widest font-bold block mb-1">
+            TECHNICAL SPECIFICATIONS
+          </span>
+          <h3 class="text-3xl sm:text-4xl font-serif font-black text-white">
+            CHAMPION EDITION HOODIE
+          </h3>
+          <p class="font-serif italic text-neutral-300 mt-2 text-sm">
+            Washed Carbon Black finish with high-density fluorescent volt screenprint, custom metal drawcord aglets, and embossed rubber racing tag on cuff.
+          </p>
+        </div>
+
+        <!-- Spec List -->
+        <div class="space-y-3 font-mono text-xs">
+          <div class="flex justify-between p-3.5 rounded-xl bg-neutral-900/80 border border-neutral-800">
+            <span class="text-neutral-400">FABRIC WEIGHT</span>
+            <span class="text-white font-bold">480 GSM HEAVYWEIGHT COTTON</span>
+          </div>
+          <div class="flex justify-between p-3.5 rounded-xl bg-neutral-900/80 border border-neutral-800">
+            <span class="text-neutral-400">FIT & CUT</span>
+            <span class="text-white font-bold">BOXY OVERSIZED DROP SHOULDER</span>
+          </div>
+          <div class="flex justify-between p-3.5 rounded-xl bg-neutral-900/80 border border-neutral-800">
+            <span class="text-neutral-400">AUTHENTICITY</span>
+            <span class="text-[#E0FF00] font-bold">NFC VERIFIED RACING CERTIFICATE</span>
+          </div>
+        </div>
+
+        <!-- Size Selector -->
+        <div>
+          <label class="block font-mono text-xs text-neutral-400 uppercase tracking-wider mb-2 font-bold">
+            SELECT SIZE:
+          </label>
+          <div class="flex gap-2" id="size-selector">
+            {['S', 'M', 'L', 'XL', 'XXL'].map((size, idx) => (
+              <button 
+                class={`size-btn w-12 h-12 rounded-xl font-mono text-xs font-bold transition-all border ${idx === 2 ? 'bg-[#E0FF00] text-black border-[#E0FF00]' : 'bg-neutral-900 text-neutral-300 border-neutral-800 hover:border-white'}`}
+                data-size={size}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Purchase Button with Confetti Fanfare -->
+        <div class="pt-2">
+          <button 
+            id="btn-buy-merch" 
+            class="w-full py-4 px-8 rounded-full bg-[#E0FF00] text-black font-mono font-black text-sm uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_30px_rgba(224,255,0,0.4)] flex items-center justify-center gap-3"
+          >
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            ADD TO RACE BAG // €135 EUR
+          </button>
+          <span class="block text-center font-mono text-[10px] text-neutral-400 mt-2 tracking-wider">
+            FREE WORLDWIDE EXPRESS DISPATCH VIA McLAREN LOGISTICS
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import confetti from 'canvas-confetti';
+  import { f1Audio } from '../utils/audio';
+
+  const card = document.getElementById('hoodie-card');
+  card?.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotX = ((y - centerY) / centerY) * -10;
+    const rotY = ((x - centerX) / centerX) * 10;
+
+    card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+  });
+
+  card?.addEventListener('mouseleave', () => {
+    if (card) card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+  });
+
+  const sizeBtns = document.querySelectorAll('.size-btn');
+  sizeBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      f1Audio.playClick(1.5);
+      sizeBtns.forEach((b) => {
+        b.className = 'size-btn w-12 h-12 rounded-xl font-mono text-xs font-bold transition-all border bg-neutral-900 text-neutral-300 border-neutral-800 hover:border-white';
+      });
+      btn.className = 'size-btn w-12 h-12 rounded-xl font-mono text-xs font-bold transition-all border bg-[#E0FF00] text-black border-[#E0FF00] shadow-[0_0_15px_rgba(224,255,0,0.4)]';
+    });
+  });
+
+  const buyBtn = document.getElementById('btn-buy-merch');
+  buyBtn?.addEventListener('click', () => {
+    f1Audio.playVictoryFanfare();
+    confetti({
+      particleCount: 140,
+      spread: 75,
+      origin: { y: 0.7 },
+      colors: ['#E0FF00', '#FFFFFF', '#00FFCC', '#111111']
+    });
+
+    const originalText = buyBtn.innerHTML;
+    buyBtn.innerHTML = "✓ ADDED TO PIT BAG // P1";
+    buyBtn.style.backgroundColor = "#FFFFFF";
+
+    setTimeout(() => {
+      buyBtn.innerHTML = originalText;
+      buyBtn.style.backgroundColor = "#E0FF00";
+    }, 2500);
+  });
+</script>

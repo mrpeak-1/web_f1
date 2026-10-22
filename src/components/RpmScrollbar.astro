@@ -1,0 +1,198 @@
+---
+// RpmScrollbar.astro: F1 Steering Wheel LED Shift Lights & Telemetry RPM Bar for JAMES // J4
+---
+
+<header class="fixed top-0 left-0 right-0 z-40 select-none bg-gradient-to-b from-black/95 via-black/80 to-transparent backdrop-blur-md border-b border-neutral-900/80 transition-all">
+  <!-- Topmost Shift Light Array (15 F1 LEDs: 5 Green, 5 Yellow/Red, 5 Blue/Purple) -->
+  <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
+    <!-- Brand / Driver Badge: JAMES // J4 -->
+    <div class="flex items-center gap-3">
+      <a href="#hero" class="flex items-center gap-2 group">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#E0FF00] text-black font-mono font-black text-xs group-hover:scale-105 transition-transform shadow-[0_0_15px_rgba(224,255,0,0.4)]">
+          J4
+        </span>
+        <div class="flex flex-col">
+          <span class="font-mono text-xs tracking-wider text-white font-extrabold group-hover:text-[#E0FF00] transition-colors leading-none">
+            JAMES // APEX
+          </span>
+          <span class="font-mono text-[9px] text-[#E0FF00] tracking-widest uppercase">MCLAREN F1 DRIVER #4</span>
+        </div>
+      </a>
+      <span class="text-neutral-700 font-mono text-xs hidden md:inline">|</span>
+      <!-- Grand Prix Live Status -->
+      <div class="hidden lg:flex items-center gap-2 text-[11px] font-mono text-neutral-400">
+        <span class="w-2 h-2 rounded-full bg-[#E0FF00] animate-ping"></span>
+        <span class="text-neutral-300 font-semibold">LIVE TELEMETRY:</span>
+        <span class="text-neutral-400">P1 MONACO GP // LAP 64/78</span>
+      </div>
+    </div>
+
+    <!-- Center: F1 Steering Wheel Rev Lights -->
+    <div class="flex flex-col items-center">
+      <div class="flex items-center gap-1 sm:gap-1.5 p-1 rounded-full bg-black/80 border border-neutral-800 shadow-inner">
+        <!-- 5 Green LEDs (Low) -->
+        <div class="led-pod flex items-center gap-1" data-range="green">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span class="rpm-led w-2 h-3.5 sm:w-2.5 sm:h-4 rounded-[2px] bg-emerald-950/60 border border-emerald-900/40 transition-all duration-75" data-idx={i}></span>
+          ))}
+        </div>
+        <!-- 5 Red LEDs (Mid) -->
+        <div class="led-pod flex items-center gap-1" data-range="red">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span class="rpm-led w-2 h-3.5 sm:w-2.5 sm:h-4 rounded-[2px] bg-rose-950/60 border border-rose-900/40 transition-all duration-75" data-idx={i + 5}></span>
+          ))}
+        </div>
+        <!-- 5 Purple/Blue LEDs (Shift Peak) -->
+        <div class="led-pod flex items-center gap-1" data-range="purple">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span class="rpm-led w-2 h-3.5 sm:w-2.5 sm:h-4 rounded-[2px] bg-purple-950/60 border border-purple-900/40 transition-all duration-75" data-idx={i + 10}></span>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Controls: Audio Toggle + Gear + Telemetry Numbers -->
+    <div class="flex items-center gap-2.5 sm:gap-3">
+      <!-- Current Gear Indicator -->
+      <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono shadow-sm">
+        <span class="text-neutral-500">GEAR</span>
+        <span id="gear-display" class="font-bold text-[#E0FF00]">1</span>
+      </div>
+
+      <!-- Live RPM Number -->
+      <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono shadow-sm">
+        <span id="rpm-text" class="font-bold text-[#E0FF00]">0 RPM</span>
+      </div>
+
+      <!-- F1 Team Radio Audio Toggle -->
+      <button 
+        id="btn-sound-toggle" 
+        class="flex items-center gap-1.5 px-3 py-1 rounded-full border border-neutral-800 hover:border-[#E0FF00] bg-neutral-900/80 hover:bg-[#E0FF00]/10 text-neutral-300 hover:text-[#E0FF00] font-mono text-[11px] transition-all"
+        title="Toggle F1 Audio Sound Effects"
+      >
+        <svg id="sound-icon-on" class="w-3.5 h-3.5 text-[#E0FF00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <svg id="sound-icon-off" class="w-3.5 h-3.5 text-neutral-500 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+        <span id="sound-label" class="hidden sm:inline">RADIO: LIVE</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Micro Progress Linear Bar -->
+  <div class="w-full h-[2px] bg-neutral-900">
+    <div id="rpm-fill" class="h-full bg-[#E0FF00] transition-all duration-75 shadow-[0_0_12px_#E0FF00]" style="width: 0%"></div>
+  </div>
+</header>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { f1Audio } from '../utils/audio';
+
+  const rpmFill = document.getElementById('rpm-fill');
+  const rpmText = document.getElementById('rpm-text');
+  const gearDisplay = document.getElementById('gear-display');
+  const leds = document.querySelectorAll<HTMLElement>('.rpm-led');
+  const soundBtn = document.getElementById('btn-sound-toggle');
+  const soundIconOn = document.getElementById('sound-icon-on');
+  const soundIconOff = document.getElementById('sound-icon-off');
+  const soundLabel = document.getElementById('sound-label');
+
+  let lastGear = 1;
+
+  // Sound Toggle Setup
+  soundBtn?.addEventListener('click', () => {
+    const isLive = f1Audio.toggleMute();
+    f1Audio.playClick(2.0);
+
+    if (isLive) {
+      soundIconOn?.classList.remove('hidden');
+      soundIconOff?.classList.add('hidden');
+      if (soundLabel) soundLabel.innerText = "RADIO: LIVE";
+    } else {
+      soundIconOn?.classList.add('hidden');
+      soundIconOff?.classList.remove('hidden');
+      if (soundLabel) soundLabel.innerText = "RADIO: MUTED";
+    }
+  });
+
+  // Calculate Gears and RPM from scroll progress
+  ScrollTrigger.create({
+    trigger: document.body,
+    start: "top top",
+    end: "bottom bottom",
+    onUpdate: (self) => {
+      const progress = self.progress;
+      const rpm = Math.round(progress * 13500);
+      const activeLedCount = Math.round(progress * 15);
+
+      // Gear calculation: 1 to 8 gears
+      const currentGear = Math.max(1, Math.min(8, Math.ceil(progress * 8)));
+      if (currentGear !== lastGear) {
+        lastGear = currentGear;
+        f1Audio.playGearShift();
+      }
+
+      if (gearDisplay) {
+        gearDisplay.innerText = progress >= 0.98 ? 'REV' : `${currentGear}`;
+      }
+
+      if (rpmFill) {
+        rpmFill.style.width = `${progress * 100}%`;
+        if (progress > 0.88) {
+          rpmFill.style.backgroundColor = '#B026FF'; // Rev shift light color
+        } else {
+          rpmFill.style.backgroundColor = '#E0FF00';
+        }
+      }
+
+      if (rpmText) {
+        rpmText.innerText = `${rpm.toLocaleString()} RPM`;
+      }
+
+      // Update LEDs states
+      leds.forEach((led, idx) => {
+        if (idx < activeLedCount) {
+          if (idx < 5) {
+            led.style.backgroundColor = '#00FF66';
+            led.style.boxShadow = '0 0 8px #00FF66';
+            led.style.borderColor = '#00FF66';
+          } else if (idx < 10) {
+            led.style.backgroundColor = '#FF1801';
+            led.style.boxShadow = '0 0 10px #FF1801';
+            led.style.borderColor = '#FF1801';
+          } else {
+            led.style.backgroundColor = '#B026FF';
+            led.style.boxShadow = '0 0 14px #B026FF';
+            led.style.borderColor = '#B026FF';
+          }
+
+          if (progress > 0.92) {
+            led.classList.add('animate-shift-blink');
+          } else {
+            led.classList.remove('animate-shift-blink');
+          }
+        } else {
+          led.style.boxShadow = 'none';
+          led.classList.remove('animate-shift-blink');
+          if (idx < 5) {
+            led.style.backgroundColor = 'rgba(6, 78, 59, 0.4)';
+            led.style.borderColor = 'rgba(6, 78, 59, 0.3)';
+          } else if (idx < 10) {
+            led.style.backgroundColor = 'rgba(136, 19, 55, 0.4)';
+            led.style.borderColor = 'rgba(136, 19, 55, 0.3)';
+          } else {
+            led.style.backgroundColor = 'rgba(88, 28, 135, 0.4)';
+            led.style.borderColor = 'rgba(88, 28, 135, 0.3)';
+          }
+        }
+      });
+    }
+  });
+</script>

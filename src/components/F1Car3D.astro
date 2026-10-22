@@ -1,0 +1,343 @@
+---
+// F1Car3D.astro: McLaren MCL38 Wind Tunnel & Aerodynamic Architecture
+// Featuring high-definition isolated transparent Formula 1 car with laser CFD streamlines & DRS
+---
+
+<section id="f1-car-3d" class="relative min-h-screen py-24 px-4 sm:px-6 md:px-12 bg-transparent text-white overflow-hidden select-none">
+  <!-- Section Title -->
+  <div class="max-w-7xl mx-auto mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-800 pb-8">
+    <div class="space-y-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 bg-[#E0FF00] shadow-[0_0_10px_#E0FF00]"></span>
+        <span class="font-mono text-xs uppercase tracking-widest text-[#E0FF00] font-bold">SECTION 03 // 3D CHASSIS & AERODYNAMICS</span>
+      </div>
+      <h2 class="text-4xl sm:text-6xl md:text-7xl font-serif font-black uppercase tracking-tight text-white">
+        MCL38 <span class="text-[#E0FF00]">AERODYNAMICS.</span>
+      </h2>
+    </div>
+
+    <div class="max-w-md">
+      <p class="font-serif italic text-sm text-neutral-300">
+        "James' 2025/2026 ground-effect challenger. Interactive CFD wind tunnel, component telemetry inspection, and active DRS rear wing articulation."
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Showcase Stage -->
+  <div class="max-w-7xl mx-auto relative h-[620px] sm:h-[720px] rounded-3xl bg-radial from-neutral-900/90 via-[#0A0D08] to-black border border-neutral-800 shadow-[0_0_90px_rgba(0,0,0,0.95)] overflow-hidden flex items-center justify-center group">
+    <!-- Laser Grid Floor -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1a2610_1px,transparent_1px),linear-gradient(to_bottom,#1a2610_1px,transparent_1px)] bg-[size:40px_40px] opacity-25"></div>
+
+    <!-- Interactive CFD Wind Tunnel Canvas (High-Speed Laser Streamlines) -->
+    <canvas id="cfd-streamlines-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
+
+    <!-- Centerpiece: High-Definition Transparent Formula 1 Car with 3D Tilt -->
+    <div class="relative z-10 w-full max-w-5xl px-4 flex flex-col items-center">
+      <div id="car-interactive-wrapper" class="relative w-full max-w-4xl cursor-pointer transition-transform duration-200">
+        <!-- Floor Reflection Shadow -->
+        <div class="absolute -bottom-10 inset-x-12 h-20 bg-[#E0FF00]/15 blur-3xl rounded-full scale-y-50"></div>
+        
+        <!-- High-Res Isolated Formula 1 Car Transparent PNG -->
+        <img 
+          id="mclaren-car-img"
+          src="/images/f1_car_angle.png" 
+          alt="McLaren Formula 1 Car" 
+          class="relative z-10 w-full h-auto max-h-[460px] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.95)] select-none pointer-events-none transition-all duration-500"
+        />
+
+        <!-- Active DRS Wing Indicator Pill -->
+        <div 
+          id="drs-wing-indicator" 
+          class="absolute top-6 left-1/4 z-20 px-3.5 py-1.5 rounded-full bg-black/95 border border-[#E0FF00] font-mono text-[11px] text-[#E0FF00] font-black shadow-[0_0_20px_#E0FF00] transition-all opacity-0 scale-90"
+        >
+          DRS FLAP OPEN // +20 KM/H SPEED BOOST
+        </div>
+
+        <!-- Hotspot Pin 1: Front Wing -->
+        <button 
+          class="hotspot-pin absolute bottom-20 right-1/4 z-20 w-8 h-8 rounded-full bg-[#E0FF00] text-black font-mono font-black text-xs flex items-center justify-center shadow-[0_0_20px_#E0FF00] hover:scale-125 transition-transform"
+          data-target="frontwing"
+          title="Front Wing Aero"
+        >
+          01
+        </button>
+
+        <!-- Hotspot Pin 2: Halo Safety Cell -->
+        <button 
+          class="hotspot-pin absolute top-24 left-1/2 -translate-x-1/2 z-20 w-8 h-8 rounded-full bg-[#E0FF00] text-black font-mono font-black text-xs flex items-center justify-center shadow-[0_0_20px_#E0FF00] hover:scale-125 transition-transform"
+          data-target="halo"
+          title="Titanium Halo"
+        >
+          02
+        </button>
+
+        <!-- Hotspot Pin 3: Power Unit V6 -->
+        <button 
+          class="hotspot-pin absolute top-28 left-1/3 z-20 w-8 h-8 rounded-full bg-[#E0FF00] text-black font-mono font-black text-xs flex items-center justify-center shadow-[0_0_20px_#E0FF00] hover:scale-125 transition-transform"
+          data-target="engine"
+          title="1.6L V6 Turbo Hybrid"
+        >
+          03
+        </button>
+
+        <!-- Hotspot Pin 4: DRS Rear Wing -->
+        <button 
+          class="hotspot-pin absolute top-12 left-1/5 z-20 w-8 h-8 rounded-full bg-[#E0FF00] text-black font-mono font-black text-xs flex items-center justify-center shadow-[0_0_20px_#E0FF00] hover:scale-125 transition-transform"
+          data-target="rearwing"
+          title="Active DRS Wing"
+        >
+          04
+        </button>
+      </div>
+    </div>
+
+    <!-- Top Left Telemetry Overlay -->
+    <div class="absolute top-6 left-6 z-20 space-y-2 pointer-events-none">
+      <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/85 border border-neutral-800 backdrop-blur-md">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#E0FF00] animate-ping"></span>
+        <span class="font-mono text-xs font-bold text-white">CFD VELOCITY // 354 KM/H</span>
+      </div>
+      <div class="p-3 rounded-xl bg-black/85 border border-neutral-800 text-[11px] font-mono backdrop-blur-md text-neutral-400 max-w-xs">
+        <span class="text-[#E0FF00] font-bold block mb-1">AERODYNAMIC DOWNFORCE:</span>
+        2,450 KG @ 300 KM/H // EFFICIENCY: 3.85
+      </div>
+    </div>
+
+    <!-- Top Right Controls: DRS & View Angle Buttons -->
+    <div class="absolute top-6 right-6 z-20 flex flex-col items-end gap-2.5">
+      <button 
+        id="btn-car-drs" 
+        class="px-5 py-2.5 rounded-full font-mono text-xs font-black uppercase tracking-wider bg-[#E0FF00] text-black hover:scale-105 active:scale-95 transition-all shadow-[0_0_25px_rgba(224,255,0,0.6)] flex items-center gap-2"
+      >
+        <span class="w-2 h-2 rounded-full bg-black animate-pulse"></span>
+        <span id="car-drs-label">OPEN DRS FLAP [ACTUATOR]</span>
+      </button>
+
+      <div class="flex gap-1.5 bg-black/80 p-1.5 rounded-full border border-neutral-800 backdrop-blur-md">
+        <button class="cam-view-btn px-3 py-1 rounded-full font-mono text-[10px] text-black bg-[#E0FF00] font-bold transition-colors" data-mode="angle">3/4 PERSPECTIVE</button>
+        <button class="cam-view-btn px-3 py-1 rounded-full font-mono text-[10px] text-neutral-400 hover:bg-neutral-800 transition-colors" data-mode="side">PROFILE SIDE</button>
+        <button class="cam-view-btn px-3 py-1 rounded-full font-mono text-[10px] text-neutral-400 hover:bg-neutral-800 transition-colors" data-mode="cfd">CFD LASER</button>
+        <button class="cam-view-btn px-3 py-1 rounded-full font-mono text-[10px] text-neutral-400 hover:bg-neutral-800 transition-colors" data-mode="thermal">THERMAL</button>
+      </div>
+    </div>
+
+    <!-- Hotspot Navigation Bar at Bottom -->
+    <div class="absolute bottom-6 inset-x-6 z-20 flex flex-wrap items-center justify-between gap-4 pointer-events-auto">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="font-mono text-[10px] text-neutral-400 uppercase tracking-widest font-bold mr-2">INSPECT COMPONENT:</span>
+        <button class="hotspot-btn px-3 py-1.5 rounded-lg bg-black/80 border border-neutral-800 hover:border-[#E0FF00] font-mono text-xs text-neutral-300 hover:text-[#E0FF00] transition-all" data-target="frontwing">01 // FRONT WING</button>
+        <button class="hotspot-btn px-3 py-1.5 rounded-lg bg-black/80 border border-neutral-800 hover:border-[#E0FF00] font-mono text-xs text-neutral-300 hover:text-[#E0FF00] transition-all" data-target="halo">02 // TITANIUM HALO</button>
+        <button class="hotspot-btn px-3 py-1.5 rounded-lg bg-black/80 border border-neutral-800 hover:border-[#E0FF00] font-mono text-xs text-neutral-300 hover:text-[#E0FF00] transition-all" data-target="engine">03 // V6 HYBRID</button>
+        <button class="hotspot-btn px-3 py-1.5 rounded-lg bg-black/80 border border-neutral-800 hover:border-[#E0FF00] font-mono text-xs text-neutral-300 hover:text-[#E0FF00] transition-all" data-target="rearwing">04 // DRS REAR WING</button>
+      </div>
+
+      <div class="font-mono text-[10px] text-neutral-400 bg-black/80 px-3 py-1 rounded-full border border-neutral-800 hidden sm:block">
+        MOVE CURSOR TO TILT // CLICK PINS FOR TELEMETRY
+      </div>
+    </div>
+
+    <!-- Component Info Drawer -->
+    <div id="hotspot-drawer" class="absolute bottom-20 left-6 z-30 p-5 rounded-2xl bg-black/95 border border-[#E0FF00]/80 backdrop-blur-xl max-w-sm font-mono text-xs space-y-2 opacity-0 pointer-events-none transition-opacity duration-300 shadow-2xl">
+      <div class="flex justify-between items-center text-[#E0FF00] font-bold">
+        <span id="drawer-title">FRONT WING GROUND EFFECT</span>
+        <button id="drawer-close" class="text-neutral-400 hover:text-white font-bold p-1">✕</button>
+      </div>
+      <p id="drawer-desc" class="text-neutral-300 font-sans text-xs">
+        Multi-tier carbon winglets create Y250 downforce vortices sealing the underfloor venturi tunnels.
+      </p>
+      <div class="flex justify-between pt-2 border-t border-neutral-800 text-[10px] text-neutral-400">
+        <span>DOWNFORCE RATIO: <span class="text-white font-bold" id="drawer-stat1">38% FRONT</span></span>
+        <span>CARBON GRADE: <span class="text-[#E0FF00] font-bold" id="drawer-stat2">TORAY T1100G</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { f1Audio } from '../utils/audio';
+
+  // 1. Smooth 2D CFD Streamline Laser Simulation on Canvas
+  const canvas = document.getElementById('cfd-streamlines-canvas') as HTMLCanvasElement;
+  let streamlineSpeedMult = 1.0;
+
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = canvas.clientWidth;
+    let height = canvas.height = canvas.clientHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = canvas.clientWidth;
+      height = canvas.height = canvas.clientHeight;
+    });
+
+    const lines: Array<{ x: number; y: number; length: number; speed: number; color: string; width: number }> = [];
+    for (let i = 0; i < 45; i++) {
+      lines.push({
+        x: Math.random() * width,
+        y: height * 0.15 + Math.random() * (height * 0.7),
+        length: 50 + Math.random() * 140,
+        speed: 14 + Math.random() * 20,
+        color: Math.random() > 0.4 ? '#E0FF00' : '#00FFCC',
+        width: 1 + Math.random() * 2.0
+      });
+    }
+
+    function renderCFD() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, width, height);
+
+      lines.forEach((l) => {
+        l.x -= l.speed * streamlineSpeedMult;
+        if (l.x + l.length < 0) {
+          l.x = width + Math.random() * 120;
+          l.y = height * 0.15 + Math.random() * (height * 0.7);
+        }
+
+        const grad = ctx.createLinearGradient(l.x, l.y, l.x + l.length, l.y);
+        grad.addColorStop(0, 'rgba(0,0,0,0)');
+        grad.addColorStop(0.5, l.color);
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+        ctx.beginPath();
+        ctx.moveTo(l.x, l.y);
+        ctx.lineTo(l.x + l.length, l.y);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = l.width;
+        ctx.stroke();
+      });
+
+      requestAnimationFrame(renderCFD);
+    }
+    renderCFD();
+  }
+
+  // 2. Interactive 3D Perspective Tilt on Mouse Move
+  const carWrapper = document.getElementById('car-interactive-wrapper');
+  window.addEventListener('mousemove', (e) => {
+    if (!carWrapper) return;
+    const rect = carWrapper.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const rotX = ((e.clientY - centerY) / centerY) * -10;
+    const rotY = ((e.clientX - centerX) / centerX) * 10;
+
+    carWrapper.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+  });
+
+  // 3. DRS Flap Articulation
+  const btnDrs = document.getElementById('btn-car-drs');
+  const labelDrs = document.getElementById('car-drs-label');
+  const drsIndicator = document.getElementById('drs-wing-indicator');
+  let drsOpen = false;
+
+  btnDrs?.addEventListener('click', () => {
+    drsOpen = !drsOpen;
+    f1Audio.playTurboFlutter();
+
+    if (drsOpen) {
+      if (labelDrs) labelDrs.innerText = "CLOSE DRS FLAP [ACTUATOR OPEN]";
+      btnDrs.style.backgroundColor = '#FFFFFF';
+      drsIndicator?.classList.remove('opacity-0', 'scale-90');
+      drsIndicator?.classList.add('opacity-100', 'scale-100');
+      streamlineSpeedMult = 1.7; // Speed boost in wind tunnel
+    } else {
+      if (labelDrs) labelDrs.innerText = "OPEN DRS FLAP [ACTUATOR]";
+      btnDrs.style.backgroundColor = '#E0FF00';
+      drsIndicator?.classList.remove('opacity-100', 'scale-100');
+      drsIndicator?.classList.add('opacity-0', 'scale-90');
+      streamlineSpeedMult = 1.0;
+    }
+  });
+
+  // 4. Hotspots Drawer Data
+  const drawer = document.getElementById('hotspot-drawer');
+  const drawerTitle = document.getElementById('drawer-title');
+  const drawerDesc = document.getElementById('drawer-desc');
+  const drawerStat1 = document.getElementById('drawer-stat1');
+  const drawerStat2 = document.getElementById('drawer-stat2');
+  const drawerClose = document.getElementById('drawer-close');
+
+  const hotspotData: Record<string, { title: string; desc: string; stat1: string; stat2: string }> = {
+    frontwing: {
+      title: "01 // CARBON FRONT WING ASSEMBLY",
+      desc: "Multi-tier carbon winglets create Y250 downforce vortices sealing the underfloor venturi tunnels.",
+      stat1: "35% DOWNFORCE",
+      stat2: "CARBON T1100G"
+    },
+    halo: {
+      title: "02 // GRADE 5 TITANIUM HALO",
+      desc: "Cockpit occupant protection cell rated to withstand 12,000 kg impact load (equivalent to two double-decker buses).",
+      stat1: "120 kN STATIC LOAD",
+      stat2: "AERODYNAMIC FAIRING"
+    },
+    engine: {
+      title: "03 // 1.6L V6 TURBO HYBRID POWER UNIT",
+      desc: "Thermal efficiency surpassing 52% with MGU-K kinetic energy recovery and MGU-H electric turbocharger.",
+      stat1: "1,020+ BRAKE HP",
+      stat2: "50,000 RPM TURBO"
+    },
+    rearwing: {
+      title: "04 // HYDRAULIC DRS REAR WING",
+      desc: "Active hydraulic flap articulates to 85mm opening distance, reducing profile drag by 28% along DRS straights.",
+      stat1: "+20 KM/H SPEED DELTA",
+      stat2: "CARBON ENDPLATES"
+    }
+  };
+
+  document.querySelectorAll('.hotspot-btn, .hotspot-pin').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target') || 'frontwing';
+      const data = hotspotData[target];
+      if (!data) return;
+
+      f1Audio.playClick(1.8);
+
+      if (drawerTitle) drawerTitle.innerText = data.title;
+      if (drawerDesc) drawerDesc.innerText = data.desc;
+      if (drawerStat1) drawerStat1.innerText = data.stat1;
+      if (drawerStat2) drawerStat2.innerText = data.stat2;
+
+      if (drawer) {
+        drawer.classList.remove('opacity-0', 'pointer-events-none');
+        drawer.classList.add('opacity-100', 'pointer-events-auto');
+      }
+    });
+  });
+
+  drawerClose?.addEventListener('click', () => {
+    if (drawer) {
+      drawer.classList.remove('opacity-100', 'pointer-events-auto');
+      drawer.classList.add('opacity-0', 'pointer-events-none');
+    }
+  });
+
+  // View Angle Switcher (3/4 Angle, Side Profile, CFD, Thermal)
+  const viewBtns = document.querySelectorAll('.cam-view-btn');
+  const carImg = document.getElementById('mclaren-car-img') as HTMLImageElement;
+
+  viewBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      f1Audio.playClick(1.5);
+      const mode = btn.getAttribute('data-mode');
+      viewBtns.forEach(b => b.className = "cam-view-btn px-3 py-1 rounded-full font-mono text-[10px] text-neutral-400 hover:bg-neutral-800 transition-colors");
+      btn.className = "cam-view-btn px-3 py-1 rounded-full font-mono text-[10px] text-black bg-[#E0FF00] font-bold transition-colors";
+
+      if (!carImg) return;
+
+      if (mode === 'side') {
+        carImg.src = "/images/f1_car_side.png";
+        carImg.style.filter = "none";
+      } else if (mode === 'thermal') {
+        carImg.src = "/images/f1_car_angle.png";
+        carImg.style.filter = "invert(1) hue-rotate(180deg) contrast(1.6) saturate(2)";
+      } else if (mode === 'cfd') {
+        carImg.src = "/images/f1_car_angle.png";
+        carImg.style.filter = "drop-shadow(0 0 35px #00FFCC) contrast(1.2) brightness(1.1)";
+      } else {
+        carImg.src = "/images/f1_car_angle.png";
+        carImg.style.filter = "none";
+      }
+    });
+  });
+</script>

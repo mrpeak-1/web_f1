@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThreeBackground from '../components/ThreeBackground.astro';
+import Preloader from '../components/Preloader.astro';
+import RpmScrollbar from '../components/RpmScrollbar.astro';
+import Hero from '../components/Hero.astro';
+import ScrollScrubTicker from '../components/ScrollScrubTicker.astro';
+import DualTrack from '../components/DualTrack.astro';
+import F1Car3D from '../components/F1Car3D.astro';
+import HelmetScrub from '../components/HelmetScrub.astro';
+import MerchCapsule from '../components/MerchCapsule.astro';
+import ExclusivesDeck from '../components/ExclusivesDeck.astro';
+import TelemetryDashboard from '../components/TelemetryDashboard.astro';
+import CustomCursor from '../components/CustomCursor.astro';
+---
+
+<Layout title="JAMES // J4 - FORMULA 1 SPEED & STYLE EXPERIENCE">
+  <!-- Interactive Three.js 3D Warp Speed Background Canvas -->
+  <ThreeBackground />
+
+  <!-- Magnetic Custom Cursor with mix-blend-mode: difference -->
+  <CustomCursor />
+
+  <!-- F1 Preloader (Gantry 5 Lights Out Sequence for James #4) -->
+  <Preloader />
+
+  <!-- Sticky F1 Steering Wheel RPM LED Shift Light Bar & Audio Switch -->
+  <RpmScrollbar />
+
+  <main class="relative z-10 w-full">
+    <!-- SECTION 1: HERO COCKPIT (James Calligraphy Signature + Editorial Serif) -->
+    <Hero />
+
+    <!-- KINETIC SCROLL SCRUB TICKER (Massive Horizontal Text Ribbon) -->
+    <ScrollScrubTicker />
+
+    <!-- SECTION 2: DUAL SOUL (On-Track Race Suit vs Off-Track Streetwear Split) -->
+    <DualTrack />
+
+    <!-- SECTION 3: 3D ANIMATED F1 CAR (MCL38 Wind Tunnel, Active DRS & Hotspots) -->
+    <F1Car3D />
+
+    <!-- SECTION 4: THE HELMET VAULT (360° Scrub + High-Res Photography + Lid Modal) -->
+    <HelmetScrub />
+
+    <!-- SECTION 5: WORLD DRIVERS' CHAMPION (Streetwear Capsule Drop & 3D Hoodie) -->
+    <MerchCapsule />
+
+    <!-- SECTION 6: EXCLUSIVES (Fanned VIP Paddock Pass Deck & Mobile Cards) -->
+    <ExclusivesDeck />
+
+    <!-- SECTION 7: LIVE TELEMETRY & PIT SOUNDBOARD (G-Forces, Thermals, DRS & Audio FX) -->
+    <TelemetryDashboard />
+  </main>
+</Layout>

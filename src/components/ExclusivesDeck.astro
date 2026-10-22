@@ -1,0 +1,171 @@
+---
+// ExclusivesDeck.astro: VIP Paddock Pass Deck & Mobile Cards Fan-out Carousel
+---
+
+<section id="exclusives" class="relative py-28 px-4 sm:px-6 md:px-12 bg-transparent text-white overflow-hidden select-none">
+  <!-- Section Title -->
+  <div class="max-w-7xl mx-auto text-center mb-16 space-y-4">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-800 bg-neutral-900/60 backdrop-blur-md">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#E0FF00] animate-ping"></span>
+      <span class="font-mono text-xs uppercase tracking-widest text-[#E0FF00] font-bold">SECTION 05 // EXCLUSIVES</span>
+    </div>
+
+    <h2 class="text-4xl sm:text-6xl md:text-7xl font-serif font-black uppercase tracking-tight text-white">
+      PADDOCK PASS <span class="text-[#E0FF00]">DECK.</span>
+    </h2>
+
+    <p class="font-serif italic text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto">
+      "Exclusive digital collector passes for James' inner circle. Unlock telemetry live feeds, secret apparel drops, and pit lane garage walk-throughs."
+    </p>
+  </div>
+
+  <!-- Fanned Cards Stage -->
+  <div class="max-w-6xl mx-auto relative h-[480px] sm:h-[540px] flex items-center justify-center">
+    <div class="relative w-full max-w-4xl h-full flex items-center justify-center" id="card-deck-container">
+      {[
+        {
+          id: "card-1",
+          tier: "PASS 01",
+          title: "MONACO PADDOCK VIP",
+          color: "#E0FF00",
+          desc: "Full pit garage access + motorhome dining overlooking Port Hercule chicane.",
+          badge: "GRID ALL-ACCESS",
+          rotation: -18,
+          translateX: -160,
+          translateY: 20,
+          zIndex: 10
+        },
+        {
+          id: "card-2",
+          tier: "PASS 02",
+          title: "PIT WALL TELEMETRY",
+          color: "#00FFCC",
+          desc: "Direct headset link to race engineer intercom channel during Qualifying 3.",
+          badge: "ECU STREAM",
+          rotation: -9,
+          translateX: -80,
+          translateY: 8,
+          zIndex: 20
+        },
+        {
+          id: "card-3",
+          tier: "PASS 03",
+          title: "JAMES APEX CLUB",
+          color: "#E0FF00",
+          desc: "Season opener private meet, customized Bell mini-helmet & 1-of-1 streetwear.",
+          badge: "TIER ULTRA",
+          rotation: 0,
+          translateX: 0,
+          translateY: 0,
+          zIndex: 30
+        },
+        {
+          id: "card-4",
+          tier: "PASS 04",
+          title: "SIMULATOR LAB",
+          color: "#B026FF",
+          desc: "Full motion rig session with McLaren engineers tuning baseline aero.",
+          badge: "VIRTUAL PRO",
+          rotation: 9,
+          translateX: 80,
+          translateY: 8,
+          zIndex: 20
+        },
+        {
+          id: "card-5",
+          tier: "PASS 05",
+          title: "PODIUM CELEBRATION",
+          color: "#FF3366",
+          desc: "Parc Fermé access to celebrate P1 Champagne shower on the winner's rostrum.",
+          badge: "TROPHY ZONE",
+          rotation: 18,
+          translateX: 160,
+          translateY: 20,
+          zIndex: 10
+        }
+      ].map((card, idx) => (
+        <div 
+          class="fanned-card absolute w-60 sm:w-72 h-[380px] sm:h-[440px] rounded-3xl bg-neutral-900 border border-neutral-700/80 p-6 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.9)] cursor-pointer transition-all duration-500 ease-out hover:border-[#E0FF00] hover:shadow-[0_0_40px_rgba(224,255,0,0.3)]"
+          style={`transform: rotate(${card.rotation}deg) translate(${card.translateX}px, ${card.translateY}px); z-index: ${card.zIndex};`}
+          data-default-transform={`rotate(${card.rotation}deg) translate(${card.translateX}px, ${card.translateY}px)`}
+          data-default-z={card.zIndex}
+          data-card={JSON.stringify(card)}
+        >
+          <!-- Card Ambient Top Sheen -->
+          <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/10 to-transparent rounded-t-3xl pointer-events-none"></div>
+
+          <!-- Card Header -->
+          <div class="relative z-10 flex items-center justify-between">
+            <span class="font-mono text-[10px] font-bold text-neutral-400">{card.tier}</span>
+            <span class="px-2.5 py-0.5 rounded-full font-mono text-[9px] font-black uppercase text-black" style={`background-color: ${card.color};`}>
+              {card.badge}
+            </span>
+          </div>
+
+          <!-- Card Middle Emblem -->
+          <div class="relative z-10 text-center my-auto space-y-2">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-black/60 border border-neutral-800 flex items-center justify-center text-white shadow-inner">
+              <span class="font-mono font-black text-xl text-[#E0FF00]">J4</span>
+            </div>
+            <h4 class="font-serif font-black text-xl uppercase tracking-tight text-white leading-tight">
+              {card.title}
+            </h4>
+            <p class="font-serif italic text-xs text-neutral-300">
+              {card.desc}
+            </p>
+          </div>
+
+          <!-- Card Footer (NFC Chip Barcode) -->
+          <div class="relative z-10 pt-4 border-t border-neutral-800 flex items-center justify-between font-mono text-[10px] text-neutral-400">
+            <span>NFC // ENCRYPTED</span>
+            <span class="text-white font-bold">2025/2026</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="text-center font-mono text-xs text-neutral-400 uppercase tracking-widest mt-6">
+    HOVER OR TOUCH TO EXPAND CARDS // NFC TOKEN COMPATIBLE
+  </div>
+</section>
+
+<script>
+  import { f1Audio } from '../utils/audio';
+
+  const cards = document.querySelectorAll<HTMLElement>('.fanned-card');
+
+  cards.forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      f1Audio.playClick(1.6);
+      const defaultTransform = card.getAttribute('data-default-transform');
+      
+      // Elevate and straighten hovered card
+      card.style.transform = `scale(1.1) translateY(-35px)`;
+      card.style.zIndex = "50";
+
+      // Spread neighbor cards slightly
+      cards.forEach((other) => {
+        if (other !== card) {
+          other.style.opacity = "0.45";
+        }
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      const defaultTransform = card.getAttribute('data-default-transform');
+      const defaultZ = card.getAttribute('data-default-z');
+      if (defaultTransform) card.style.transform = defaultTransform;
+      if (defaultZ) card.style.zIndex = defaultZ;
+
+      cards.forEach((other) => {
+        other.style.opacity = "1";
+      });
+    });
+
+    card.addEventListener('click', () => {
+      f1Audio.playTurboFlutter();
+    });
+  });
+</script>
+

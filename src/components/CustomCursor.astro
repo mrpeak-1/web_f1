@@ -1,0 +1,60 @@
+---
+// CustomCursor.astro: Magnetic F1 Crosshair Cursor with mix-blend-mode: difference
+---
+
+<div id="cursor-dot" class="pointer-events-none fixed top-0 left-0 z-50 w-3 h-3 rounded-full bg-[#E0FF00] -translate-x-1/2 -translate-y-1/2 mix-blend-difference transition-transform duration-75 hidden md:block"></div>
+<div id="cursor-ring" class="pointer-events-none fixed top-0 left-0 z-50 w-9 h-9 rounded-full border border-[#E0FF00]/80 -translate-x-1/2 -translate-y-1/2 mix-blend-difference transition-all duration-150 ease-out hidden md:block"></div>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (dot) {
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    }
+  });
+
+  // Smooth follow for the outer ring using GSAP ticker
+  gsap.ticker.add(() => {
+    ringX += (mouseX - ringX) * 0.2;
+    ringY += (mouseY - ringY) * 0.2;
+
+    if (ring) {
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+    }
+  });
+
+  // Hover states on interactives
+  const interactives = document.querySelectorAll('a, button, input, canvas, .cursor-pointer');
+  interactives.forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      if (ring) {
+        ring.style.width = '52px';
+        ring.style.height = '52px';
+        ring.style.backgroundColor = 'rgba(224, 255, 0, 0.2)';
+        ring.style.borderColor = '#E0FF00';
+      }
+    });
+
+    el.addEventListener('mouseleave', () => {
+      if (ring) {
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.backgroundColor = 'transparent';
+        ring.style.borderColor = 'rgba(224, 255, 0, 0.8)';
+      }
+    });
+  });
+</script>
+

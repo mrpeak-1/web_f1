@@ -1,0 +1,23 @@
+{
+  "name": "f1-apex-experience",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^5.1.0",
+    "@types/three": "^0.186.0",
+    "astro": "^4.15.0",
+    "canvas-confetti": "^1.9.3",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
+    "tailwindcss": "^3.4.10",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0"
+  }
+}

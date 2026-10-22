@@ -1,0 +1,113 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "JAMES // J4 - FORMULA 1 SPEED & STYLE EXPERIENCE",
+  description = "Awwwards Site of the Year caliber interactive digital experience for James #4. Editorial design, Three.js warp speed background, live F1 telemetry, 3D animated car, 3D helmet vault and dynamic dual track mode."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="bg-[#0A0A0A] text-[#EDEDED] antialiased selection:bg-[#E0FF00] selection:text-black scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-weight='900' fill='%23E0FF00'>J4</text></svg>" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Google Fonts for Editorial Luxury + F1 Telemetry -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  </head>
+  <body class="relative min-h-screen overflow-x-hidden bg-[#0A0A0A] font-sans">
+    <!-- Cinematic High-End Grain Overlay -->
+    <div class="pointer-events-none fixed inset-0 z-40 opacity-[0.035] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+    <!-- Vignette effect for depth -->
+    <div class="pointer-events-none fixed inset-0 z-40 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.85)_100%)]"></div>
+
+    <slot />
+
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Initialize Lenis with weighted luxury friction
+      const lenis = new Lenis({
+        duration: 1.25,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.05,
+      });
+
+      // Synchronize Lenis and GSAP ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+
+      // Expose to window for external jump/scroll handling
+      (window as any).lenis = lenis;
+
+      // Bidirectional Scroll Reveal Animations (Up & Down)
+      // When scrolling DOWN: elements rise in with translate-y & fade
+      // When scrolling UP: elements transition smoothly back and re-enter
+      const sections = document.querySelectorAll('section');
+      sections.forEach((sec) => {
+        const revealElements = sec.querySelectorAll('h2, h3, p, .tilt-card, .helmet-card, .fanned-card, #dual-container, #hoodie-card');
+
+        gsap.fromTo(revealElements, 
+          {
+            opacity: 0,
+            y: 40,
+            scale: 0.98
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sec,
+              start: "top 80%",
+              end: "bottom 15%",
+              toggleActions: "play reverse play reverse",
+              onUpdate: (self) => {
+                // If scrolling up fast, slight upward momentum
+                if (self.direction === -1) {
+                  // Scrolling up
+                }
+              }
+            }
+          }
+        );
+      });
+
+      // Inertial Skew on scroll velocity
+      const skewTargets = document.querySelectorAll('.tilt-card, .fanned-card, #hoodie-card');
+      lenis.on('scroll', (e) => {
+        const velocity = e.velocity || 0;
+        const clampedVelocity = Math.max(-10, Math.min(10, velocity));
+        const skew = clampedVelocity * -0.05;
+
+        skewTargets.forEach((target) => {
+          (target as HTMLElement).style.transform = `skewY(${skew}deg)`;
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,285 @@
+---
+// Hero.astro: Hero Cockpit with James #4 Signature & Pure Fluorescent Volt Typography
+// All green texts are now pure electric volt #E0FF00 (zero opaque/muted olive) with vibrant glow
+---
+
+<section id="hero" class="relative min-h-screen pt-28 pb-20 px-4 sm:px-6 md:px-12 flex flex-col justify-between overflow-hidden bg-[#0a0d08]">
+  <!-- Topographic Contour Lines Background -->
+  <div class="pointer-events-none absolute inset-0 z-0 opacity-25 bg-[radial-gradient(ellipse_at_center,#223311_0%,transparent_75%)]"></div>
+  <svg class="pointer-events-none absolute inset-0 w-full h-full opacity-20 stroke-[#E0FF00]/50 fill-none stroke-[1]" viewBox="0 0 1440 900" preserveAspectRatio="none">
+    <path d="M-100 200 C 300 150, 600 350, 900 250 C 1200 150, 1400 400, 1600 300" />
+    <path d="M-100 350 C 400 300, 700 500, 1000 400 C 1300 300, 1500 600, 1600 500" />
+    <path d="M-100 500 C 350 450, 650 650, 950 550 C 1250 450, 1450 750, 1600 650" />
+    <path d="M-100 650 C 450 600, 750 800, 1050 700 C 1350 600, 1550 850, 1600 800" />
+  </svg>
+
+  <!-- Top Hero Header: Driver Meta & Season Status -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800/80 pb-5">
+    <div class="flex items-center gap-3">
+      <div class="flex flex-col">
+        <span class="font-mono text-[10px] tracking-widest text-[#E0FF00] uppercase font-bold drop-shadow-[0_0_8px_#E0FF00]">DRIVER CAR #4</span>
+        <h2 class="font-mono text-sm tracking-wider uppercase font-bold text-white flex items-center gap-2">
+          <span>JAMES</span>
+          <span class="text-neutral-500 font-normal">//</span>
+          <span class="text-neutral-300">McLAREN FORMULA 1 TEAM</span>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Telemetry Capsule Badges -->
+    <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto py-1">
+      <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-neutral-800 backdrop-blur-md">
+        <span class="text-[10px] font-mono text-neutral-400">TOP SPEED</span>
+        <span class="text-xs font-mono font-bold text-[#E0FF00] drop-shadow-[0_0_8px_#E0FF00]">354 KM/H</span>
+      </div>
+      <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-neutral-800 backdrop-blur-md">
+        <span class="text-[10px] font-mono text-neutral-400">LATERAL G</span>
+        <span class="text-xs font-mono font-bold text-white">5.4 G</span>
+      </div>
+      <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-neutral-800 backdrop-blur-md">
+        <span class="text-[10px] font-mono text-neutral-400">SEASON</span>
+        <span class="text-xs font-mono font-bold text-[#E0FF00] drop-shadow-[0_0_8px_#E0FF00]">P1 CONTENDER</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Centerpiece: Signature & Massive Typography with Pure Fluorescent Volt Color -->
+  <div class="relative z-10 max-w-6xl mx-auto w-full my-auto py-8 sm:py-12 flex flex-col items-center text-center">
+    <!-- Animated James Signature SVG (Electric Volt #E0FF00) -->
+    <div class="w-full max-w-md sm:max-w-lg mb-4 relative flex justify-center">
+      <div class="absolute inset-0 bg-[#E0FF00]/20 blur-3xl rounded-full scale-75"></div>
+      
+      <svg 
+        id="hero-signature" 
+        viewBox="0 0 680 220" 
+        class="relative w-full h-auto stroke-[#E0FF00] fill-none stroke-[3.5] drop-shadow-[0_0_25px_rgba(224,255,0,0.85)]"
+      >
+        <!-- 'J' Dynamic sweeping hook -->
+        <path 
+          id="sig-j" 
+          d="M 120 40 C 135 30, 160 30, 155 80 C 150 145, 135 195, 80 190 C 45 185, 45 145, 75 130 C 95 120, 125 135, 145 155" 
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <!-- 'a' 'm' 'e' 's' connected speed cursive flourish -->
+        <path 
+          id="sig-ames" 
+          d="M 175 120 C 190 95, 230 95, 230 125 C 230 150, 195 155, 190 135 C 185 110, 220 100, 245 135 C 255 110, 280 100, 295 130 C 310 105, 335 100, 350 135 C 360 115, 390 105, 385 135 C 380 155, 420 150, 440 120 C 455 100, 485 110, 480 145 C 475 170, 430 175, 415 155" 
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <!-- Fast Underline Speed Swoosh -->
+        <path 
+          id="sig-swoosh" 
+          d="M 80 165 C 220 140, 420 145, 590 110 C 630 100, 610 80, 560 95" 
+          stroke-linecap="round" 
+          stroke-width="3"
+        />
+        <!-- #4 Driver mark in sharp racing cuts -->
+        <path 
+          id="sig-number-4" 
+          d="M 520 50 L 500 130 L 565 130 M 545 85 L 545 170" 
+          stroke-linecap="round" 
+          stroke-width="3.8"
+        />
+      </svg>
+    </div>
+
+    <!-- Editorial High-Contrast Typography: Pure Fluorescent Volt for Green Accents -->
+    <div class="relative max-w-5xl text-left sm:text-center space-y-1 font-serif select-none" id="hero-editorial-title">
+      <!-- Line 1: REDEFINING LIMITS, (Now 100% Fluorescent Volt #E0FF00 with glow) -->
+      <div class="relative overflow-hidden inline-block w-full">
+        <div class="reveal-curtain absolute inset-0 bg-[#E0FF00] z-20 will-change-transform shadow-[0_0_20px_#E0FF00]"></div>
+        <span class="reveal-text block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase text-[#E0FF00] drop-shadow-[0_0_20px_rgba(224,255,0,0.5)] tracking-tight leading-none">
+          REDEFINING LIMITS,
+        </span>
+      </div>
+
+      <!-- Line 2: FIGHTING FOR WINS, -->
+      <div class="relative overflow-hidden inline-block w-full">
+        <div class="reveal-curtain absolute inset-0 bg-[#E0FF00] z-20 will-change-transform shadow-[0_0_20px_#E0FF00]"></div>
+        <span class="reveal-text block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight leading-none">
+          <span class="font-sans text-[#EDEDED] font-extrabold">FIGHTING FOR </span>
+          <span class="text-[#E0FF00] font-serif italic drop-shadow-[0_0_25px_rgba(224,255,0,0.7)]">WINS</span><span class="text-[#E0FF00]">,</span>
+        </span>
+      </div>
+
+      <!-- Line 3: BRINGING IT ALL IN -->
+      <div class="relative overflow-hidden inline-block w-full">
+        <div class="reveal-curtain absolute inset-0 bg-[#E0FF00] z-20 will-change-transform shadow-[0_0_20px_#E0FF00]"></div>
+        <span class="reveal-text block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-extrabold uppercase text-[#EDEDED] tracking-tight leading-none">
+          BRINGING IT ALL IN
+        </span>
+      </div>
+
+      <!-- Line 4: ALL WAYS. DEFINING A -->
+      <div class="relative overflow-hidden inline-block w-full">
+        <div class="reveal-curtain absolute inset-0 bg-[#E0FF00] z-20 will-change-transform shadow-[0_0_20px_#E0FF00]"></div>
+        <span class="reveal-text block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-extrabold uppercase text-[#EDEDED] tracking-tight leading-none">
+          ALL WAYS. DEFINING A
+        </span>
+      </div>
+
+      <!-- Line 5: LEGACY IN FORMULA 1 (LEGACY in Pure Fluorescent Volt #E0FF00 with glow) -->
+      <div class="relative overflow-hidden inline-block w-full">
+        <div class="reveal-curtain absolute inset-0 bg-[#E0FF00] z-20 will-change-transform shadow-[0_0_20px_#E0FF00]"></div>
+        <span class="reveal-text block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight leading-none">
+          <span class="text-[#E0FF00] font-serif italic drop-shadow-[0_0_20px_rgba(224,255,0,0.5)]">LEGACY </span>
+          <span class="font-sans text-[#EDEDED] font-extrabold">IN FORMULA 1</span>
+        </span>
+      </div>
+
+      <!-- Line 6: ON AND OFF THE TRACK. -->
+      <div class="relative overflow-hidden inline-block w-full">
+        <div class="reveal-curtain absolute inset-0 bg-[#E0FF00] z-20 will-change-transform shadow-[0_0_20px_#E0FF00]"></div>
+        <span class="reveal-text block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-white tracking-tight leading-none pt-2">
+          ON AND OFF THE TRACK.
+        </span>
+      </div>
+    </div>
+
+    <!-- Interactive Navigation Buttons -->
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-5 relative z-10">
+      <a 
+        href="#dual-track" 
+        class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#E0FF00] text-black font-mono font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(224,255,0,0.7)] active:scale-95"
+      >
+        <span>EXPLORE DUAL SOUL</span>
+        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+
+      <a 
+        href="#f1-car-3d" 
+        class="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-neutral-700 bg-black/70 backdrop-blur-md text-white font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:border-[#E0FF00] hover:text-[#E0FF00] hover:scale-105"
+      >
+        <span>MCL38 CAR 3D</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-[#E0FF00] animate-ping"></span>
+      </a>
+
+      <a 
+        href="#helmet-vault" 
+        class="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-neutral-700 bg-black/70 backdrop-blur-md text-white font-mono text-xs uppercase tracking-widest transition-all duration-300 hover:border-[#E0FF00] hover:text-[#E0FF00] hover:scale-105"
+      >
+        <span>HELMETS VAULT</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Bottom Hero Floating Preview Gallery (Editorial 3D Perspective Tilt Mosaic) -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full pt-8 border-t border-neutral-800/80 grid grid-cols-2 lg:grid-cols-4 gap-4" id="hero-cards-grid">
+    <!-- Card 1: Cockpit Focus -->
+    <div class="tilt-card group relative rounded-2xl overflow-hidden bg-black/70 border border-neutral-800 p-4 transition-all duration-300 hover:border-[#E0FF00] hover:shadow-[0_0_25px_rgba(224,255,0,0.2)]">
+      <div class="text-[10px] font-mono text-[#E0FF00] mb-2 flex items-center justify-between">
+        <span>01 // COCKPIT TELEMETRY</span>
+        <span>MCL38</span>
+      </div>
+      <div class="h-28 rounded-xl overflow-hidden relative bg-neutral-950 flex items-center justify-center">
+        <img src="/images/on_track_suit_official.webp" alt="Cockpit Telemetry" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+      </div>
+      <p class="font-serif italic text-xs text-neutral-300 mt-2">"Pure precision through the Monaco chicane."</p>
+    </div>
+
+    <!-- Card 2: Dual Identity -->
+    <div class="tilt-card group relative rounded-2xl overflow-hidden bg-black/70 border border-neutral-800 p-4 transition-all duration-300 hover:border-[#E0FF00] hover:shadow-[0_0_25px_rgba(224,255,0,0.2)]">
+      <div class="text-[10px] font-mono text-[#E0FF00] mb-2 flex items-center justify-between">
+        <span>02 // DUAL IDENTITY</span>
+        <span>ON / OFF</span>
+      </div>
+      <div class="h-28 rounded-xl overflow-hidden relative bg-neutral-950 flex items-center justify-center">
+        <img src="/images/off_track_hoodie_official.webp" alt="Off Track Streetwear" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+      </div>
+      <p class="font-serif italic text-xs text-neutral-300 mt-2">"High octane speed meets street aesthetic."</p>
+    </div>
+
+    <!-- Card 3: 3D Vault -->
+    <div class="tilt-card group relative rounded-2xl overflow-hidden bg-black/70 border border-neutral-800 p-4 transition-all duration-300 hover:border-[#E0FF00] hover:shadow-[0_0_25px_rgba(224,255,0,0.2)]">
+      <div class="text-[10px] font-mono text-[#E0FF00] mb-2 flex items-center justify-between">
+        <span>03 // BELL HP77 LID</span>
+        <span>OFFICIAL LIDS</span>
+      </div>
+      <div class="h-28 rounded-xl overflow-hidden relative bg-neutral-950 flex items-center justify-center">
+        <img src="/images/helmets/season_2025.webp" alt="Season 2025 Helmet" class="w-24 h-24 object-contain group-hover:scale-115 transition-transform duration-500" />
+      </div>
+      <p class="font-serif italic text-xs text-neutral-300 mt-2">"Ballistic Zylon strip & bespoke volt aero."</p>
+    </div>
+
+    <!-- Card 4: Championship Contender -->
+    <div class="tilt-card group relative rounded-2xl overflow-hidden bg-black/70 border border-neutral-800 p-4 transition-all duration-300 hover:border-[#E0FF00] hover:shadow-[0_0_25px_rgba(224,255,0,0.2)]">
+      <div class="text-[10px] font-mono text-[#E0FF00] mb-2 flex items-center justify-between">
+        <span>04 // CHAMPIONSHIP</span>
+        <span>P1 CONTENDER</span>
+      </div>
+      <div class="h-28 rounded-xl overflow-hidden relative bg-neutral-950 flex items-center justify-center p-2">
+        <img src="/images/f1_car_perspective.png" alt="McLaren F1 Car" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)]" />
+      </div>
+      <p class="font-serif italic text-xs text-neutral-300 mt-2">"Chasing every tenth of a second on the grid."</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  function animateJamesHero() {
+    const paths = [
+      document.querySelector('#sig-j') as SVGPathElement,
+      document.querySelector('#sig-ames') as SVGPathElement,
+      document.querySelector('#sig-swoosh') as SVGPathElement,
+      document.querySelector('#sig-number-4') as SVGPathElement
+    ].filter(Boolean);
+
+    paths.forEach((path) => {
+      const length = path.getTotalLength();
+      gsap.set(path, {
+        strokeDasharray: length,
+        strokeDashoffset: length,
+      });
+    });
+
+    const tl = gsap.timeline({ delay: 0.1 });
+
+    // 1. Draw signature
+    tl.to(paths, {
+      strokeDashoffset: 0,
+      duration: 2.0,
+      stagger: 0.15,
+      ease: "power3.inOut"
+    });
+
+    // 2. Neon bars curtain wipe reveal transition
+    const curtains = document.querySelectorAll('.reveal-curtain');
+    const texts = document.querySelectorAll('.reveal-text');
+
+    tl.to(curtains, {
+      xPercent: -102,
+      duration: 0.9,
+      stagger: 0.12,
+      ease: "power3.inOut",
+      onComplete: () => {
+        curtains.forEach((c) => {
+          (c as HTMLElement).style.display = 'none';
+        });
+      }
+    }, "-=1.3");
+
+    tl.from(texts, {
+      x: 30,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: "power3.out"
+    }, "<0.1");
+  }
+
+  document.addEventListener('f1:race-started', animateJamesHero);
+
+  setTimeout(() => {
+    const pj = document.querySelector('#sig-j') as SVGPathElement;
+    if (pj && pj.style.strokeDashoffset === '') {
+      animateJamesHero();
+    }
+  }, 2200);
+</script>
